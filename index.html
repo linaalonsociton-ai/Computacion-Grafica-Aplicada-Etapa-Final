@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      font-family: monospace;
+      color: #ccc;
+    }
+    #boton-mic {
+      margin-top: 14px;
+      padding: 8px 20px;
+      background: transparent;
+      border: 1px solid #88B914;
+      color: #88B914;
+      font-family: monospace;
+      font-size: 13px;
+      cursor: pointer;
+      letter-spacing: 0.05em;
+      transition: background 0.15s;
+    }
+    #boton-mic:hover  { background: rgba(136,185,20,0.12); }
+    #boton-mic:disabled { opacity: 0.4; cursor: default; }
+    #instrucciones {
+      margin-top: 10px;
+      font-size: 11px;
+      color: #666;
+      text-align: center;
+      line-height: 1.8;
+    }
+  </style>
+</head>
+<body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/p5.min.js"></script>
+  <script src="ima_pico_generativo.js"></script>
+
+  <!-- Botón para activar el micrófono (requerimiento de seguridad del navegador:
+       getUserMedia solo puede llamarse desde un gesto del usuario) -->
+  <button id="boton-mic" onclick="activarMic(this)">▶ Activar micrófono</button>
+
+  <script>
+    function activarMic(btn) {
+      btn.disabled = true;
+      btn.textContent = '● Micrófono activo';
+      iniciarMicrofono().catch(() => {
+        btn.disabled = false;
+        btn.textContent = '▶ Reintentar';
+      });
+    }
+  </script>
+</body>
+</html>
